@@ -27,7 +27,7 @@ export function Sidebar() {
           <LayoutDashboard className="w-4 h-4" />
           Dashboard
         </Link>
-        <Link href="/empleados" className="flex items-center gap-3 hover:bg-white/5 px-3 py-2.5 rounded-lg text-sm text-blue-200 hover:text-white transition-colors">
+        <Link href="/administrador/empleados" className="flex items-center gap-3 hover:bg-white/5 px-3 py-2.5 rounded-lg text-sm text-blue-200 hover:text-white transition-colors">
           <Users className="w-4 h-4" />
           Empleados
         </Link>
