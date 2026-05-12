@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.planillas.models.Usuarios;
 import com.spring.planillas.models.payload.response;
-import com.spring.planillas.repository.usuarioRepository;
 import com.spring.planillas.services.authServices;
 import com.spring.planillas.services.jwtservices;
 import org.springframework.web.bind.annotation.PostMapping;
