@@ -27,11 +27,11 @@ public class Usuarios {
 
     @ManyToOne
     @JoinColumn(name = "idrol", nullable = false)
-    private Integer idrol;
+    private Roles roles;
 
     @ManyToOne
     @JoinColumn(name = "idcargo", nullable = false)
-    private Integer idcargo;
+    private Cargos cargos;
 
     @Column(nullable = false, name = "estado")
     private Boolean estado;
@@ -84,20 +84,21 @@ public class Usuarios {
         this.documento = documento;
     }
 
-    public Integer getIdrol() {
-        return idrol;
+
+    public Roles getRoles() {
+        return roles;
     }
 
-    public void setIdrol(Integer idrol) {
-        this.idrol = idrol;
+    public void setRoles(Roles roles) {
+        this.roles = roles;
     }
 
-    public Integer getIdcargo() {
-        return idcargo;
+    public Cargos getCargos() {
+        return cargos;
     }
 
-    public void setIdcargo(Integer idcargo) {
-        this.idcargo = idcargo;
+    public void setCargos(Cargos cargos) {
+        this.cargos = cargos;
     }
 
     public Boolean getEstado() {
