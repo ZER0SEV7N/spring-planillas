@@ -23,11 +23,22 @@ export function AddEmpleadoModal({ cargos, onEmpleadoAñadido }: { cargos: any[]
         email: "",
         password: "",
         roles: { idrol: 4 }, 
-        cargos: { idcargo: 1 } 
+        cargos: { idcargo: 1 },
+        estado: true // <--- AGREGA ESTO
     });
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
+        setFormData({ 
+            ...formData, 
+            nombre: "", 
+            apellido: "", 
+            documento: "", 
+            email: "", 
+            password: "", 
+            estado: true 
+        });
+        
         setIsLoading(true);
         try{
             await api.post("/auth/registrar", formData);
