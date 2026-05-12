@@ -12,15 +12,15 @@ public class Planillas {
 
     @ManyToOne
     @JoinColumn(name = "idusuario", nullable = false)
-    private Integer idusuario;
+    private Usuarios usuario;
 
     @ManyToOne
     @JoinColumn(name = "idcargo", nullable = false)
-    private Integer idcargo;
+    private Cargos cargo;
 
     @ManyToOne
     @JoinColumn(name = "idrol", nullable = false)
-    private Integer idrol;
+    private Roles rol;
 
     @Column(nullable = false, name = "mes")
     private String mes;
@@ -45,28 +45,28 @@ public class Planillas {
         this.idplanilla = idplanilla;
     }
 
-    public Integer getIdusuario() {
-        return idusuario;
+    public Usuarios getUsuario() {
+        return usuario;
     }
 
-    public void setIdusuario(Integer idusuario) {
-        this.idusuario = idusuario;
+    public void setUsuario(Usuarios usuario) {
+        this.usuario = usuario;
     }
 
-    public Integer getIdcargo() {
-        return idcargo;
+    public Cargos getCargo() {
+        return cargo;
     }
 
-    public void setIdcargo(Integer idcargo) {
-        this.idcargo = idcargo;
+    public void setCargo(Cargos cargo) {
+        this.cargo = cargo;
     }
 
-    public Integer getIdrol() {
-        return idrol;
+    public Roles getRol() {
+        return rol;
     }
 
-    public void setIdrol(Integer idrol) {
-        this.idrol = idrol;
+    public void setRol(Roles rol) {
+        this.rol = rol;
     }
 
     public String getMes() {

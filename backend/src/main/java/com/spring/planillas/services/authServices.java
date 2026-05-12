@@ -77,4 +77,15 @@ public class authServices {
 
         return usuarioRepository.save(usuario);
     }
+
+    //Obtener el usuario autenticado actual
+    public Usuarios getUsuarioActual(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+        if(authentication == null || !authentication.isAuthenticated()) 
+            return null;
+
+        String emailActual = authentication.getName(); 
+        return usuarioRepository.findByEmail(emailActual);
+    }
 }

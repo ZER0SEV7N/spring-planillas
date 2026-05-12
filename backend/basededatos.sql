@@ -20,7 +20,7 @@ create table usuarios(
     apellido char(50) not null,
     email char(50) unique,
     documento char(11) unique,
-    password char(50) not null,
+    password varchar(255) not null,
     idrol int references roles(idrol),
     idcargo int references cargos(idcargo),
     estado boolean not null default true
@@ -51,7 +51,7 @@ insert cargos values
 (null, 'Asistente', 2000.00),
 (null, 'Oficinista', 1500.00);
 
--- Insertar usuarios de ejemplo
+-- Insertar usuarios de ejemplo con contraseñas encriptadas (La contraseña es: 123456)
 insert usuarios (nombre, apellido, email, documento, password, idrol, idcargo) values
-('Juan', 'Pérez', 'juan.perez@example.com', '12345678901', '123456', 1, 1),
-('María', 'Gómez', 'maria.gomez@example.com', '12345678902', '123456', 4, 4);
+('Juan', 'Pérez', 'juan.perez@example.com', '12345678901', '$2a$10$/PseeBzOuCTVY4XxnaS1zeAvt7NLNdwd3RuXNbeNRvZEynQuPE0.y', 1, 1),
+('María', 'Gómez', 'maria.gomez@example.com', '12345678902', '$2a$10$/PseeBzOuCTVY4XxnaS1zeAvt7NLNdwd3RuXNbeNRvZEynQuPE0.y', 4, 4);

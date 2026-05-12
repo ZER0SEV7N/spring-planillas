@@ -12,11 +12,15 @@ import com.spring.planillas.models.Usuarios;
 import com.spring.planillas.models.payload.response;
 import com.spring.planillas.services.authServices;
 import com.spring.planillas.services.jwtservices;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 //Controlador para manejar la autenticación
 //Endpoints para login y registro de usuarios
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/auth")
 public class authController {
@@ -59,4 +63,18 @@ public class authController {
 
         return ResponseEntity.status(200).body(new response<>(true, "Login exitoso", data));
     }
+
+    @GetMapping("/perfil")
+    public ResponseEntity<response<Usuarios>> getPerfil(){
+        Usuarios usuario = authService.getUsuarioActual();
+
+        if(usuario == null) 
+            return ResponseEntity.status(401).body(new response<>(false, "No se pudo obtener el perfil", null));
+
+        usuario.setIdusuario(null);
+        usuario.setPassword(null);
+
+        return ResponseEntity.status(200).body(new response<>(true, "Perfil obtenido exitosamente", usuario));
+    }
+
 }
