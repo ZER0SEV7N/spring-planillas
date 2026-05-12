@@ -32,9 +32,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             return;
         }
 
+        
         try{
             const res = await api.get('/auth/perfil');
-            setUser(res.data.data);
+            setUser(res.data.data || res.data.usuario || res.data);
         } catch (error) {
             console.error('Error al obtener el perfil:', error);
         } finally {
