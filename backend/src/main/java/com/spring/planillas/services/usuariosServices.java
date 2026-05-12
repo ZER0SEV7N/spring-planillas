@@ -17,7 +17,7 @@ public class usuariosServices {
 
     //Obtener todos los usuarios de la base de datos
     public List<Usuarios> getAllUsuarios(){
-        return usuarioRepository.findAllByEstadoTrue();
+        return usuarioRepository.findAll();
     }
 
     //Obtener un usuario por su ID

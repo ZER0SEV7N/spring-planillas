@@ -33,12 +33,11 @@ public class securityConfig {
             .csrf(csrf -> csrf.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/error").permitAll()
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
                 .requestMatchers("/api/auth/login").permitAll() 
-                
                 .requestMatchers("/api/auth/perfil").authenticated() 
-                .requestMatchers("/api/auth/registrar").authenticated() 
+                .requestMatchers("/api/auth/registrar").authenticated()
                 
                 .anyRequest().authenticated() 
             )
@@ -50,7 +49,7 @@ public class securityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000")); 
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); 
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE", "OPTIONS")); 
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type")); 
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

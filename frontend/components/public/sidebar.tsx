@@ -23,7 +23,7 @@ export function Sidebar() {
 
       {/* Navegación */}
       <nav className="flex-1 px-4 space-y-2">
-        <Link href="/dashboard" className="flex items-center gap-3 bg-white/10 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
+        <Link href="/administrador/dashboard" className="flex items-center gap-3 bg-white/10 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
           <LayoutDashboard className="w-4 h-4" />
           Dashboard
         </Link>
@@ -31,15 +31,15 @@ export function Sidebar() {
           <Users className="w-4 h-4" />
           Empleados
         </Link>
-        <Link href="/procesos" className="flex items-center gap-3 hover:bg-white/5 px-3 py-2.5 rounded-lg text-sm text-blue-200 hover:text-white transition-colors">
+        <Link href="/administrador/procesos" className="flex items-center gap-3 hover:bg-white/5 px-3 py-2.5 rounded-lg text-sm text-blue-200 hover:text-white transition-colors">
           <Calculator className="w-4 h-4" />
           Procesamiento de Nómina
         </Link>
-        <Link href="/reportes" className="flex items-center gap-3 hover:bg-white/5 px-3 py-2.5 rounded-lg text-sm text-blue-200 hover:text-white transition-colors">
+        <Link href="/administrador/reportes" className="flex items-center gap-3 hover:bg-white/5 px-3 py-2.5 rounded-lg text-sm text-blue-200 hover:text-white transition-colors">
           <FileBarChart className="w-4 h-4" />
           Reportes
         </Link>
-        <Link href="/configuracion" className="flex items-center gap-3 hover:bg-white/5 px-3 py-2.5 rounded-lg text-sm text-blue-200 hover:text-white transition-colors">
+        <Link href="/administrador/configuracion" className="flex items-center gap-3 hover:bg-white/5 px-3 py-2.5 rounded-lg text-sm text-blue-200 hover:text-white transition-colors">
           <Settings className="w-4 h-4" />
           Configuracion
         </Link>

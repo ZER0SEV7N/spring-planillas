@@ -7,8 +7,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.spring.planillas.models.Usuarios;
+import com.spring.planillas.models.Cargos;
 import com.spring.planillas.models.Roles;
 import com.spring.planillas.repository.usuarioRepository;
+import com.spring.planillas.repository.cargosRepository;
 import com.spring.planillas.repository.rolesRepository;
 
 //Service para manejar la autenticación
@@ -19,6 +21,8 @@ public class authServices {
     private usuarioRepository usuarioRepository;
     @Autowired
     private rolesRepository rolesRepository;
+    @Autowired
+    private cargosRepository cargosRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -58,11 +62,12 @@ public class authServices {
 
         //Obtener la entidad Roles del nuevo usuario
         Roles rol = rolesRepository.findById(usuario.getRoles().getIdrol()).orElse(null);
-        if(rol == null)
-            return null;
-
         usuario.setRoles(rol);
 
+        if(usuario.getCargos() != null && usuario.getCargos().getIdcargo() != null) {
+        Cargos cargo = cargosRepository.findById(usuario.getCargos().getIdcargo()).orElse(null);
+        usuario.setCargos(cargo);
+    }
         //Validar que el email es único
         if(usuarioRepository.findByEmail(usuario.getEmail()) != null) 
             return null;

@@ -13,5 +13,4 @@ public interface usuarioRepository extends JpaRepository<Usuarios, Integer> {
     Usuarios findByDocumento(String documento);
     Usuarios findByNombreAndApellidoIgnoreCase(String nombre, String apellido);
 
-    List<Usuarios> findAllByEstadoTrue();
 }
