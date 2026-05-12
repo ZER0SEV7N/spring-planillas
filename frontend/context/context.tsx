@@ -56,6 +56,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const login = (token: string) => {
         localStorage.setItem('token', token);
         validarAuth();
+        router.push('/administrador/dashboard');
     };
 
     //Función para cerrar sesión, elimina el token y redirige al login

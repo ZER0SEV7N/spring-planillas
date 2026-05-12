@@ -1,12 +1,11 @@
 import axios from 'axios';
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080';
+export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8080/api';
 
 const api = axios.create({
     baseURL: API_BASE_URL,
     headers: {
         'Content-Type': 'application/json',
     },
-    withCredentials: true,
 })
 
 api.interceptors.request.use(
@@ -34,9 +33,10 @@ api.interceptors.response.use(
     },
     (error) => {
         if (error.response && error.response.status === 401) {
-            if(typeof window !== 'undefined') {
+            const originalRequestUrl = error.config.url;
+            if (typeof window !== 'undefined' && !originalRequestUrl.includes('/auth/login')) {
                 localStorage.removeItem('token');
-                window.location.href = '/login';
+                window.location.href = '/auth'; 
             }
         }
         return Promise.reject(error);

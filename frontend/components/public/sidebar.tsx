@@ -13,7 +13,7 @@ export function Sidebar() {
       {/* Logo y Título */}
       <div className="h-16 flex items-center px-6 mb-4 mt-2">
         <div className="w-8 h-8 bg-white/20 rounded text-sm flex items-center justify-center font-bold mr-3">
-          Gestor de planillas
+          HR
         </div>
         <div>
           <h1 className="font-bold text-sm tracking-wide">Gestor de planillas</h1>
