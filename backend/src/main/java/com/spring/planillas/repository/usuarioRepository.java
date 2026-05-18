@@ -1,7 +1,5 @@
 package com.spring.planillas.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +10,4 @@ public interface usuarioRepository extends JpaRepository<Usuarios, Integer> {
     Usuarios findByEmail(String email);
     Usuarios findByDocumento(String documento);
     Usuarios findByNombreAndApellidoIgnoreCase(String nombre, String apellido);
-
 }

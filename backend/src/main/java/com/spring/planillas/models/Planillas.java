@@ -1,9 +1,11 @@
 package com.spring.planillas.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "planillas")
+@Data
 public class Planillas {
 
     @Id
@@ -14,100 +16,25 @@ public class Planillas {
     @JoinColumn(name = "idusuario", nullable = false)
     private Usuarios usuario;
 
-    @ManyToOne
-    @JoinColumn(name = "idcargo", nullable = false)
-    private Cargos cargo;
-
-    @ManyToOne
-    @JoinColumn(name = "idrol", nullable = false)
-    private Roles rol;
-
-    @Column(nullable = false, name = "mes")
+    @Column(nullable = false, name = "mes", length = 2)
     private String mes;
 
-    @Column(nullable = false, name = "year")
-    private Integer year;
+    @Column(nullable = false, name = "year", length = 4)
+    private String year;
 
-    @Column(nullable = false, name = "bonificacion")
-    private Double bonificacion;
+    @Column(nullable = false, name = "salario_base", precision = 10, scale = 2)
+    private Double salarioBase;
 
-    @Column(nullable = false, name = "descuento")
-    private Double descuento;
+    @Column(nullable = false, name = "total_ingresos", precision = 10, scale = 2)
+    private Double totalIngresos;
 
-    @Column(nullable = false, name = "total")
-    private Double total;
+    @Column(nullable = false, name = "total_descuentos", precision = 10, scale = 2)
+    private Double totalDescuentos;
 
-    public Integer getIdplanilla() {
-        return idplanilla;
-    }
+    @Column(nullable = false, name = "monto_neto", precision = 10, scale = 2)
+    private Double montoNeto;
 
-    public void setIdplanilla(Integer idplanilla) {
-        this.idplanilla = idplanilla;
-    }
-
-    public Usuarios getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuarios usuario) {
-        this.usuario = usuario;
-    }
-
-    public Cargos getCargo() {
-        return cargo;
-    }
-
-    public void setCargo(Cargos cargo) {
-        this.cargo = cargo;
-    }
-
-    public Roles getRol() {
-        return rol;
-    }
-
-    public void setRol(Roles rol) {
-        this.rol = rol;
-    }
-
-    public String getMes() {
-        return mes;
-    }
-
-    public void setMes(String mes) {
-        this.mes = mes;
-    }
-
-    public Integer getYear() {
-        return year;
-    }
-
-    public void setYear(Integer year) {
-        this.year = year;
-    }
-
-    public Double getBonificacion() {
-        return bonificacion;
-    }
-
-    public void setBonificacion(Double bonificacion) {
-        this.bonificacion = bonificacion;
-    }
-
-    public Double getDescuento() {
-        return descuento;
-    }
-
-    public void setDescuento(Double descuento) {
-        this.descuento = descuento;
-    }
-
-    public Double getTotal() {
-        return total;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
-    }
-
+    @Column(name = "fecha_emision", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private String fechaEmision;
     
 }

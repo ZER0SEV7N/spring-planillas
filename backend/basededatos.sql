@@ -1,40 +1,75 @@
 drop database if exists planillas;
-create database if not exists planillas ;
+create database if not exists planillas;
 
 use planillas;
 
-create table roles(
-    idrol int auto_increment primary key,
-    rol char(50) not null
+CREATE TABLE areas (
+    idarea INT AUTO_INCREMENT PRIMARY KEY,
+    area char(50) NOT NULL
 );
 
-create table cargos(
-    idcargo int auto_increment primary key,
-    cargo char(50) not null,
-    salario decimal(10,2) not null
+CREATE TABLE roles (
+    idrol INT AUTO_INCREMENT PRIMARY KEY,
+    rol char(50) NOT NULL
 );
 
-create table usuarios(
-    idusuario int auto_increment primary key,
-    nombre char(50) not null,
-    apellido char(50) not null,
-    email char(50) unique,
-    documento char(11) unique,
-    password varchar(255) not null,
-    idrol int references roles(idrol),
-    idcargo int references cargos(idcargo),
-    estado boolean not null default true
+CREATE TABLE cargos (
+    idcargo INT AUTO_INCREMENT PRIMARY KEY,
+    cargo char(50) NOT NULL,
+    salario DECIMAL(10,2) NOT NULL
 );
 
-create table planillas(
-    idplanilla int auto_increment primary key,
-    idusuario int references usuarios(idusuario),
-    idcargo int references cargos(idcargo),
-    mes char(20) not null,
-    year int not null,
-    bonificacion decimal(10,2) not null,
-    descuento decimal(10,2) not null,
-    total decimal(10,2) not null
+CREATE TABLE jornadas_laborales (
+    idjornada INT AUTO_INCREMENT PRIMARY KEY,
+    nombre char(100) NOT NULL,
+    horas_semanales INT NOT NULL,
+    hora_ingreso_ref TIME,
+    hora_salida_ref TIME,
+    es_rotativo BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE usuarios (
+    idusuario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre char(50) NOT NULL,
+    apellido char(50) NOT NULL,
+    email char(100) UNIQUE,
+    documento char(11) UNIQUE,
+    password varchar(255) NOT NULL,
+    idrol INT NOT NULL references roles(idrol),
+    idcargo INT NOT NULL references cargos(idcargo),
+    idarea INT references areas(idarea),
+    idjornada INT references jornadas_laborales(idjornada),
+    sistema_pension Enum('ONP', 'AFP') NOT NULL, 
+    cuenta_bancaria char(30),
+    avatar_url varchar(255),
+    estado BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE asistencias (
+    idasistencia INT AUTO_INCREMENT PRIMARY KEY,
+    idusuario INT NOT NULL references usuarios(idusuario),
+    fecha DATE NOT NULL,
+    estado_asistencia Enum('Presente', 'Ausente', 'Tardanza', 'Vacaciones', 'Permiso') NOT NULL default 'Tardanza'
+);
+
+CREATE TABLE planillas (
+    idplanilla INT AUTO_INCREMENT PRIMARY KEY,
+    idusuario INT NOT NULL references usuarios(idusuario),
+    mes char(2) NOT NULL, 
+    year char(4) NOT NULL,
+    salario_base DECIMAL(10,2) NOT NULL, 
+    total_ingresos DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    total_descuentos DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    monto_neto DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+    fecha_emision TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+Create table planillasdetalles (
+    iddetalle INT AUTO_INCREMENT PRIMARY KEY,
+    idplanilla INT NOT NULL references planillas(idplanilla),
+    tipo_concepto ENUM('INGRESO', 'DESCUENTO', 'APORTE_EMPLEADOR') NOT NULL,
+    concepto char(100) NOT NULL,
+    monto DECIMAL(10,2) NOT NULL
 );
 
 -- Insertar datos de ejemplo

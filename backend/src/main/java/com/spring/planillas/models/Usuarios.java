@@ -1,9 +1,11 @@
 package com.spring.planillas.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "usuarios")
+@Data
 public class Usuarios {
 
     @Id
@@ -19,11 +21,11 @@ public class Usuarios {
     @Column(nullable = false, name = "email", unique = true)
     private String email;
 
-    @Column(nullable = false, name = "password")
-    private String password;
-
     @Column(nullable = false, name = "documento", length = 11, unique = true)
     private String documento;
+
+    @Column(nullable = false, name = "password")
+    private String password;
 
     @ManyToOne
     @JoinColumn(name = "idrol", nullable = false)
@@ -33,81 +35,24 @@ public class Usuarios {
     @JoinColumn(name = "idcargo", nullable = false)
     private Cargos cargos;
 
+    @ManyToOne
+    @JoinColumn(name = "idarea", nullable = false)
+    private Areas areas;
+
+    @ManyToOne
+    @JoinColumn(name = "idjornada", nullable = false)
+    private JornadasLaborales jornadasLaborales;
+
+    @Column(nullable = false, name = "sistema_pension", columnDefinition = "ENUM('ONP', 'AFP') NOT NULL")
+    private String sistemaPension;
+
+    @Column(nullable = true, name = "cuenta_bancaria", length = 30)
+    private String cuentaBancaria;
+
+    @Column(nullable = true, name = "avatar_url", length = 255)
+    private String avatarUrl;
+
     @Column(nullable = false, name = "estado")
     private Boolean estado;
-
-    public Integer getIdusuario() {
-        return idusuario;
-    }
-
-    public void setIdusuario(Integer idusuario) {
-        this.idusuario = idusuario;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getDocumento() {
-        return documento;
-    }
-
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
-
-
-    public Roles getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Roles roles) {
-        this.roles = roles;
-    }
-
-    public Cargos getCargos() {
-        return cargos;
-    }
-
-    public void setCargos(Cargos cargos) {
-        this.cargos = cargos;
-    }
-
-    public Boolean getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
-    }
-
-    
+   
 }

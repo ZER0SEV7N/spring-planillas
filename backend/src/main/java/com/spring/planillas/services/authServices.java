@@ -7,10 +7,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.spring.planillas.models.Usuarios;
+import com.spring.planillas.models.Areas;
 import com.spring.planillas.models.Cargos;
+import com.spring.planillas.models.JornadasLaborales;
 import com.spring.planillas.models.Roles;
 import com.spring.planillas.repository.usuarioRepository;
+import com.spring.planillas.repository.areasRepository;
 import com.spring.planillas.repository.cargosRepository;
+import com.spring.planillas.repository.jornadasLaboralesRepository;
 import com.spring.planillas.repository.rolesRepository;
 
 //Service para manejar la autenticación
@@ -23,6 +27,10 @@ public class authServices {
     private rolesRepository rolesRepository;
     @Autowired
     private cargosRepository cargosRepository;
+    @Autowired
+    private areasRepository areasRepository; 
+    @Autowired
+    private jornadasLaboralesRepository jornadasLaboralesRepository; 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -65,18 +73,32 @@ public class authServices {
         usuario.setRoles(rol);
 
         if(usuario.getCargos() != null && usuario.getCargos().getIdcargo() != null) {
-        Cargos cargo = cargosRepository.findById(usuario.getCargos().getIdcargo()).orElse(null);
-        usuario.setCargos(cargo);
-    }
-        //Validar que el email es único
+            Cargos cargo = cargosRepository.findById(usuario.getCargos().getIdcargo()).orElse(null);
+            usuario.setCargos(cargo);
+        }
+
+        if(usuario.getAreas() != null && usuario.getAreas().getIdArea() != null) {
+            Areas area = areasRepository.findById(usuario.getAreas().getIdArea()).orElse(null);
+            usuario.setAreas(area);
+        }
+
+        if(usuario.getJornadasLaborales() != null && usuario.getJornadasLaborales().getIdJornada() != null) {
+            JornadasLaborales jornada = jornadasLaboralesRepository.findById(usuario.getJornadasLaborales().getIdJornada()).orElse(null);
+            usuario.setJornadasLaborales(jornada);
+        }
+
+        if(usuario.getSistemaPension() == null || usuario.getSistemaPension().isEmpty()) 
+            return null; 
+
+        if(usuario.getEstado() == null) 
+            usuario.setEstado(true);
+
         if(usuarioRepository.findByEmail(usuario.getEmail()) != null) 
             return null;
 
-        //Validar que el documento es único
         if(usuarioRepository.findByDocumento(usuario.getDocumento()) != null)
             return null;
 
-        // Encriptar la contraseña y guardar
         String HashPassword = passwordEncoder.encode(usuario.getPassword());
         usuario.setPassword(HashPassword);
 

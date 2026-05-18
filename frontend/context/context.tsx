@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const router = useRouter();
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/immutability
         validarAuth();
     }, []);
 
@@ -32,7 +33,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             return;
         }
 
-        
         try{
             const res = await api.get('/auth/perfil');
             setUser(res.data.data || res.data.usuario || res.data);

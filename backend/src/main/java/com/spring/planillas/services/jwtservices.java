@@ -53,20 +53,15 @@ public class jwtservices {
 
     //Extraer los claims del token JWT
     private <T> T extractClaims(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
-    }
-
-    //Extraer los claims del token JWT
-    private Claims extractAllClaims(String token){
-        return Jwts.parserBuilder()
+        final Claims claims = Jwts.parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+        return claimsResolver.apply(claims);
     }
 
-    //Extraer los claims del token JWT
+    //Obtener la clave de firma para el token JWT   
     private Key getSignInKey() {
         byte [] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
