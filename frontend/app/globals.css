@@ -73,14 +73,14 @@
   --chart-4: oklch(0.52 0.105 223.128);
   --chart-5: oklch(0.45 0.085 224.283);
   --radius: 0.625rem;
-  --sidebar: oklch(0.987 0.002 197.1);
-  --sidebar-foreground: oklch(0.148 0.004 228.8);
-  --sidebar-primary: oklch(0.546 0.245 262.881);
-  --sidebar-primary-foreground: oklch(0.97 0.014 254.604);
-  --sidebar-accent: oklch(0.963 0.002 197.1);
-  --sidebar-accent-foreground: oklch(0.218 0.008 223.9);
-  --sidebar-border: oklch(0.925 0.005 214.3);
-  --sidebar-ring: oklch(0.723 0.014 214.4);
+  --sidebar-background: 240 85% 33%; /* Azul #0A0A9C */
+  --sidebar-foreground: 0 0% 100%; /* Texto en blanco */
+  --sidebar-primary: 0 0% 100%;
+  --sidebar-primary-foreground: 240 85% 33%;
+  --sidebar-accent: 240 81% 36%; /* Azul claro para el Hover #1111A6 */
+  --sidebar-accent-foreground: 0 0% 100%; /* Texto hover en blanco */
+  --sidebar-border: 240 85% 33%; /* Mismo azul para esconder el borde derecho */
+  --sidebar-ring: 240 81% 36%;
 }
 
 .dark {

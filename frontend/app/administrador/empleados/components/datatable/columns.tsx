@@ -1,16 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Eye, Edit2, Lock, Unlock, MoreHorizontal } from "lucide-react"
-
+import ViewEmpleadosModal from "../viewEmpleadosModal" // Asegúrate de que el nombre del archivo coincida con la ruta
+import { Lock, Edit } from "lucide-react"
+import { useState } from "react"
 
 export type Empleado = {
   idusuario: number
   nombre: string
-  apellido: string
+  apellido: string  
   documento: string
   email: string
   estado: boolean
@@ -18,7 +19,14 @@ export type Empleado = {
   cargos: { cargo: string }
 }
 
-export const getColumns = (cambiarEstado: (id: number) => void): ColumnDef<Empleado>[] => [
+//Definición de las columnas para la tabla de empleados
+export const getColumns = (
+  cambiarEstado: (id: number) => void,
+  cargos: any[],
+  areas: any[],
+  jornadas: any[],
+  recargarEmpleados: () => void
+): ColumnDef<Empleado>[] => [
   {
     accessorKey: "nombre",
     header: "Empleado",
@@ -60,29 +68,36 @@ export const getColumns = (cambiarEstado: (id: number) => void): ColumnDef<Emple
     },
   },
   {
-    id: "actions",
-    header: () => <div className="text-right">Acciones</div>,
-    cell: ({ row }) => {
-      const emp = row.original
+      id: "acciones",
+      header: "Acciones",
+      cell: ({ row }) => {
+          const empleado = row.original;
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          const [isModalOpen, setIsModalOpen] = useState(false);
 
-      return (
-        <div className="flex items-center justify-end gap-2">
-          <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-blue-600">
-            <Eye className="h-4 w-4" />
-          </Button>
-          <Button variant="ghost" size="icon" className="h-8 w-8 text-slate-400 hover:text-emerald-600">
-            <Edit2 className="h-4 w-4" />
-          </Button>
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            className="h-8 w-8 text-slate-400 hover:text-red-600"
-            onClick={() => cambiarEstado(emp.idusuario)}
-          >
-            {emp.estado ? <Lock className="h-4 w-4" /> : <Unlock className="h-4 w-4" />}
-          </Button>
-        </div>
-      )
-    },
-  },
-]
+          return (
+              <div className="flex items-center gap-3 text-slate-400">
+                  {/* Botones de acción */}
+                  <button onClick={() => setIsModalOpen(true)} className="hover:text-blue-600 transition-colors" title="Ver / Editar">
+                      <Edit className="w-4 h-4" />
+                  </button>
+                  
+                  <button onClick={() => cambiarEstado(empleado.idusuario)} className="hover:text-blue-600 transition-colors" title="Cambiar Estado">
+                      <Lock className="w-4 h-4" />
+                  </button>
+
+                  {/* El modal se monta aquí, pero solo se ve si isModalOpen es true */}
+                    <ViewEmpleadosModal
+                      empleado={empleado}
+                      isOpen={isModalOpen}
+                      setIsOpen={setIsModalOpen}
+                      cargos={cargos}
+                      areas={areas}
+                      jornadas={jornadas}
+                      onUpdate={recargarEmpleados}
+                    />
+              </div>
+          );
+      },
+  }
+];

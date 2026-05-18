@@ -35,12 +35,12 @@ public class Usuarios {
     @JoinColumn(name = "idcargo", nullable = false)
     private Cargos cargos;
 
-    @ManyToOne
-    @JoinColumn(name = "idarea", nullable = false)
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "idarea", nullable = true)
     private Areas areas;
 
-    @ManyToOne
-    @JoinColumn(name = "idjornada", nullable = false)
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "idjornada", nullable = true)
     private JornadasLaborales jornadasLaborales;
 
     @Column(nullable = false, name = "sistema_pension", columnDefinition = "ENUM('ONP', 'AFP') NOT NULL")

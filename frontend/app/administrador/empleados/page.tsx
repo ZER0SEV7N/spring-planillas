@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 import { useState } from "react"
 import { useEmpleado } from "./hooks/useEmpleado"
@@ -15,7 +16,7 @@ import {
 } from "@/components/ui/select"
 
 export default function EmpleadosPage() {
-    const { empleados, cargos, isLoading, cambiarEstado, recargarEmpleados } = useEmpleado();
+    const { empleados, cargos, areas, jornadas, isLoading, cambiarEstado, recargarEmpleados } = useEmpleado();
     const [searchTerm, setSearchTerm] = useState("");
     const [cargoFilter, setCargoFilter] = useState("");
     const [estadoFilter, setEstadoFilter] = useState("");
@@ -44,7 +45,7 @@ export default function EmpleadosPage() {
         return matchesSearch && matchesCargo && matchesEstado;
     });
 
-    const columns = getColumns(cambiarEstado);
+    const columns = getColumns(cambiarEstado, cargos, areas, jornadas, recargarEmpleados);
 
     return (
     <div className="flex flex-col gap-6">
@@ -89,7 +90,7 @@ export default function EmpleadosPage() {
             </Select>
             </div>
 
-            <AddEmpleadoModal cargos={cargos} onEmpleadoAñadido={recargarEmpleados} />
+            <AddEmpleadoModal cargos={cargos} areas={areas} jornadas={jornadas} onEmpleadoAñadido={recargarEmpleados} />
         </div>
 
         <DataTable columns={columns} data={data} />

@@ -23,9 +23,9 @@ CREATE TABLE jornadas_laborales (
     idjornada INT AUTO_INCREMENT PRIMARY KEY,
     nombre char(100) NOT NULL,
     horas_semanales INT NOT NULL,
-    hora_ingreso_ref TIME,
-    hora_salida_ref TIME,
-    es_rotativo BOOLEAN DEFAULT FALSE
+    hora_ingreso TIME,
+    hora_salida TIME,
+    rotativo BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE usuarios (
@@ -85,6 +85,25 @@ insert cargos values
 (null, 'Analista', 3000.00),
 (null, 'Asistente', 2000.00),
 (null, 'Oficinista', 1500.00);
+
+-- Insertar áreas de ejemplo
+insert areas values
+(null, 'Recursos Humanos'),
+(null, 'Contabilidad'),
+(null, 'Ventas'),
+(null, 'Operaciones'),
+(null, 'TI'),
+(null, 'Finanzas'),
+(null, 'Marketing');
+
+-- Insertar jornadas laborales de ejemplo
+insert jornadas_laborales values
+(null, 'Lunes a Viernes 9am-6pm', 40, '09:00:00', '18:00:00', false),
+(null, 'Lunes a Viernes 8am-5pm', 40, '08:00:00', '17:00:00', false),
+(null, 'Lunes a Viernes 10am-7pm', 40, '10:00:00', '19:00:00', false),
+(null, 'Rotativo 6am-2pm / 2pm-10pm', 40, '06:00:00', '14:00:00', true),
+(null, 'Rotativo 7am-3pm / 3pm-11pm', 40, '07:00:00', '15:00:00', true);
+
 
 -- Insertar usuarios de ejemplo con contraseñas encriptadas (La contraseña es: 123456)
 insert usuarios (nombre, apellido, email, documento, password, idrol, idcargo) values

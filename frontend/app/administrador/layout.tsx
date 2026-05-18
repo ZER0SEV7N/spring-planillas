@@ -1,5 +1,6 @@
-import { Sidebar } from "@/components/public/sidebar"
+import { AppSidebar } from "@/components/public/sidebar"
 import { Navbar } from "@/components/public/navbar"
+import { SidebarProvider } from "@/components/ui/sidebar"
 
 export default function DashboardLayout({
   children,
@@ -7,16 +8,16 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen bg-[#F8F9FB] flex">
-      <Sidebar />
+    <SidebarProvider>
+      <AppSidebar />
       
-      <div className="flex-1 flex flex-col ml-64">
+      <div className="flex-1 flex flex-col min-h-screen bg-[#F8F9FB] w-full">
         <Navbar />
         
         <main className="p-8">
           {children}
         </main>
       </div>
-    </div>
+    </SidebarProvider>
   )
 }

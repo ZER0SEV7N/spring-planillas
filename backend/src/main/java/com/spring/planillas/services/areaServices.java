@@ -31,14 +31,14 @@ public class areaServices {
     }
 
     //Metodo para actualizar un area existente
-    public Optional<Areas> updateArea(Integer id, Areas areaDetails){
+    public Areas updateArea(Integer id, Areas areaDetails){
         Optional<Areas> areaOptional = areasRepository.findById(id);
         if(areaOptional.isPresent()){
             Areas area = areaOptional.get();
             area.setNombre(areaDetails.getNombre());
-            return Optional.of(areasRepository.save(area));
+            return areasRepository.save(area);
         } else 
-            return Optional.empty();
+            return null;
     }
 
     //Metodo para eliminar un area por su id

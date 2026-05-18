@@ -15,7 +15,7 @@ public class Cargos {
     @Column(nullable = false, name = "cargo")
     private String cargo;
     
-    @Column(nullable = false, name = "salario", precision = 10, scale = 2)
+    @Column(nullable = false, name = "salario")
     private Double salario;
 
 }

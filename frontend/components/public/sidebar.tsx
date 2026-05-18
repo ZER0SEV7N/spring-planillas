@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link"
 import {
  LayoutDashboard, 
@@ -7,43 +8,71 @@ import {
   Settings 
 } from "lucide-react"
 
-export function Sidebar() {
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar";
+import { usePathname } from "next/navigation";
+
+const items = [
+  { title: "Dashboard", url: "/administrador/dashboard", icon: LayoutDashboard },
+  { title: "Empleados", url: "/administrador/empleados", icon: Users },
+  { title: "Procesamiento de Nómina", url: "/administrador/procesos", icon: Calculator },
+  { title: "Reportes", url: "/administrador/reportes", icon: FileBarChart },
+  { title: "Configuración", url: "/administrador/configuracion", icon: Settings },
+];
+
+export function AppSidebar() {
+  const pathname = usePathname();
     return (
-    <aside className="w-64 bg-[#0A0A9C] text-white flex flex-col fixed h-screen top-0 left-0">
+    <Sidebar className="border-r-0 bg-[#0A0A9C] text-white">
       {/* Logo y Título */}
-      <div className="h-16 flex items-center px-6 mb-4 mt-2">
-        <div className="w-8 h-8 bg-white/20 rounded text-sm flex items-center justify-center font-bold mr-3">
-          HR
+      <SidebarHeader className="px-6 py-6">
+        <div className="flex items-center">
+          <div className="w-8 h-8 bg-white/20 rounded text-sm flex items-center justify-center font-bold mr-3 text-white">
+            HR
+          </div>
+          <div className="flex flex-col">
+            <span className="font-bold text-sm tracking-wide text-white">Gestor de planillas</span>
+            <span className="text-xs text-blue-300">HR ADMIN</span>
+          </div>
         </div>
-        <div>
-          <h1 className="font-bold text-sm tracking-wide">Gestor de planillas</h1>
-          <p className="text-xs text-blue-300">HR ADMIN</p>
-        </div>
-      </div>
+      </SidebarHeader>
 
       {/* Navegación */}
-      <nav className="flex-1 px-4 space-y-2">
-        <Link href="/administrador/dashboard" className="flex items-center gap-3 bg-white/10 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors">
-          <LayoutDashboard className="w-4 h-4" />
-          Dashboard
-        </Link>
-        <Link href="/administrador/empleados" className="flex items-center gap-3 hover:bg-white/5 px-3 py-2.5 rounded-lg text-sm text-blue-200 hover:text-white transition-colors">
-          <Users className="w-4 h-4" />
-          Empleados
-        </Link>
-        <Link href="/administrador/procesos" className="flex items-center gap-3 hover:bg-white/5 px-3 py-2.5 rounded-lg text-sm text-blue-200 hover:text-white transition-colors">
-          <Calculator className="w-4 h-4" />
-          Procesamiento de Nómina
-        </Link>
-        <Link href="/administrador/reportes" className="flex items-center gap-3 hover:bg-white/5 px-3 py-2.5 rounded-lg text-sm text-blue-200 hover:text-white transition-colors">
-          <FileBarChart className="w-4 h-4" />
-          Reportes
-        </Link>
-        <Link href="/administrador/configuracion" className="flex items-center gap-3 hover:bg-white/5 px-3 py-2.5 rounded-lg text-sm text-blue-200 hover:text-white transition-colors">
-          <Settings className="w-4 h-4" />
-          Configuracion
-        </Link>
-      </nav>
-    </aside>
-    )
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu className="gap-2 px-2">
+              {items.map((item) => {
+                const isActive = pathname === item.url;
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton 
+                      asChild 
+                      isActive={isActive}
+                      className={`transition-colors hover:bg-white/10 hover:text-white ${
+                        isActive ? "bg-white/15 text-white font-medium" : "text-blue-200"
+                      }`}
+                    >
+                      <Link href={item.url} className="flex items-center gap-3 px-3 py-5 rounded-lg">
+                        <item.icon className="w-4 h-4" />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+  );
 }
